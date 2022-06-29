@@ -195,7 +195,10 @@ namespace CAST.Controllers
             var ms = Session[nomeArquivo] as byte[];
 
             if (ms == null)
+            {
                 return new EmptyResult();
+            }
+                
 
             Session[nomeArquivo] = null;
 
