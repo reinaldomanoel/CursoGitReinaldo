@@ -19,7 +19,7 @@ namespace CAST.Controllers
 {
     public class LoginController : BaseController
     {
-        private IControleAccesso _controleAcesso;
+        private readonly IControleAccesso _controleAcesso;
         private readonly ILoginAppService _loginAppService;
 
         public LoginController(IControleAccesso controleAcesso,
@@ -35,7 +35,10 @@ namespace CAST.Controllers
         {
 
             if (RedirectUrl != null)
+            {
                 TempData["RedirectUrl"] = RedirectUrl;
+            }
+                
 
             return View();
         }
@@ -78,7 +81,10 @@ namespace CAST.Controllers
                     if (_loginAppService.VerificaAdministradorSistema(usuario.CodUsuario))
                     {
                         if (!usuario.ExecutaRelatorioChave)
+                        {
                             usuario.ExecutaRelatorioChave = _loginAppService.VerificaExecucaoRelatorioChaves(usuario.CodUsuario);
+                        }
+                            
 
                         usuario.Perfis.Add(new PerfilAcesso { id = 3, nome = "Administrador de Sistema", administrador = true, codigoPerfil = TipoPerfil.AdministradorSistema });
                     }
@@ -130,7 +136,10 @@ namespace CAST.Controllers
             HttpRuntimeSection section = ConfigurationManager.GetSection("system.web/httpRuntime") as HttpRuntimeSection;
 
             if (section != null)
-                maxRequestLength = section.MaxRequestLength;
+            {
+                maxRequestLength = section.MaxRequestLength;    
+            }
+                
 
             Response.Cookies.Add(new HttpCookie("ExtensoesArquivos", extensoes));
             Response.Cookies.Add(new HttpCookie("TamanhoArquivo", maxRequestLength.ToString()));

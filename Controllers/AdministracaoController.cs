@@ -132,7 +132,14 @@ namespace CAST.Controllers
 
 
         [HttpPost]
-        public ActionResult FiltrarSistemaAlvo(int codSistema = 0)
+        public ActionResult FiltrarSistemaAlvo()
+        {
+            
+            return  FiltrarSistemaAlvo(0);
+        }
+
+        [HttpPost]
+        public ActionResult FiltrarSistemaAlvo(int codSistema)
         {
             //int? sistema = Request["ddlsistema"] != "0" ? (int?)Convert.ToInt32(Request["ddlsistema"]) : null;
             int sistema = Convert.ToInt32(Request["ddlsistema"]);
